@@ -1,14 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Shop.Data.Entities
+﻿namespace Shop.Data.Entities
 {
-    public class OrderDetailsEntity
+    public class OrderDetailsModel
     {
         public int Id { get; set; }
         public string OrderNumber { get; set; } = null!;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
+        public decimal Total { get; set; }
         public string IDSKU { get; set; } = null!;
         public string Size { get; set; } = null!;
         public string Color { get; set; } = null!;
@@ -16,9 +15,8 @@ namespace Shop.Data.Entities
         public DateTime ShipDate { get; set; }
         public DateTime BillDate { get; set; }
         public int OrderID { get; set; }
-        public OrderEntity? Order { get; set; }
+        public OrderModel Order { get; set; } = null!;
         public int ProductID { get; set; }
-        public ProductEntity? Product { get; set; }
-        public decimal Total { get; set; }
+        public ProductModel Product { get; set; } = null!;
     }
 }

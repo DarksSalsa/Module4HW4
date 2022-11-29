@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Shop.Data.Entities
 {
-    public class ProductEntityConfiguration : IEntityTypeConfiguration<ProductEntitiy>
+    public class ProductEntityConfiguration : IEntityTypeConfiguration<ProductEntity>
     {
-        public void Configure(EntityTypeBuilder<ProductEntitiy> builder)
+        public void Configure(EntityTypeBuilder<ProductEntity> builder)
         {
             builder.HasKey(k => k.Id);
             builder.Property(p => p.SKU);
@@ -32,13 +32,12 @@ namespace Shop.Data.Entities
             builder.Property(p => p.Note);
             builder.Property(p => p.CategoryID).IsRequired();
             builder.Property(p => p.SupplierID).IsRequired();
-            builder.Property(p => p.CurrentOrder).IsRequired();
             builder.HasOne(o => o.Category).WithMany(m => m.Products)
                 .HasForeignKey(k => k.CategoryID).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(o => o.Supplier).WithMany(m => m.TypeGoods)
                 .HasForeignKey(k => k.SupplierID).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(o => o.OrderDetails).WithOne(m => m.Product)
-                .HasForeignKey<OrderDetailsEntity>(k => k.ProductID).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(m => m.OrderDetails).WithOne(o => o.Product)
+                .HasForeignKey(k => k.ProductID).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

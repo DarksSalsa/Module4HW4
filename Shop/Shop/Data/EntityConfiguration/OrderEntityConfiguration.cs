@@ -27,8 +27,6 @@ namespace Shop.Data.Entities
             builder.Property(p => p.PaymentDate);
             builder.HasOne(o => o.Shipper).WithMany(m => m.Orders)
                 .HasForeignKey(k => k.ShipperID).OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(o => o.OrderDetails).WithOne(o => o.Order)
-                .HasForeignKey<OrderDetailsEntity>(k => k.OrderID).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(o => o.Customer).WithMany(m => m.Orders)
                 .HasForeignKey(k => k.CustomerID).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(o => o.Payment).WithMany(m => m.Orders)

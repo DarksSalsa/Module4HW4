@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Shop.Data;
@@ -11,9 +12,11 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221127192630_RelativeReallocationOfData")]
+    partial class RelativeReallocationOfData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,6 +276,9 @@ namespace Shop.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("OrderDetailsID")
+                        .HasColumnType("integer");
+
                     b.Property<string>("OrderNumber")
                         .IsRequired()
                         .HasColumnType("text");
@@ -358,7 +364,10 @@ namespace Shop.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<int>("CurrentOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Discount")
                         .HasColumnType("numeric");
 
                     b.Property<bool>("DiscountAvailable")
@@ -412,7 +421,7 @@ namespace Shop.Migrations
                     b.Property<int>("SupplierID")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("UnitPrice")
+                    b.Property<decimal?>("UnitPrice")
                         .HasColumnType("numeric");
 
                     b.Property<string>("UnitWeight")

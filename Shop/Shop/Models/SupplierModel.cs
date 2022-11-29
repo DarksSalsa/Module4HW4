@@ -1,6 +1,6 @@
 ﻿namespace Shop.Data.Entities
 {
-    public class SupplierEntity
+    public class SupplierModel
     {
         public int Id { get; set; }
         public string CompanyName { get; set; } = null!;
@@ -8,7 +8,7 @@
         public string ContactLName { get; set; } = null!;
         public string ContactTitle { get; set; } = null!;
         public string Address1 { get; set; } = null!;
-        public string? Address2 { get; set; }
+        public string? Address2 { get; set; } = null!;
         public string City { get; set; } = null!;
         public string State { get; set; } = null!;
         public string PostalCode { get; set; } = null!;
@@ -25,6 +25,6 @@
         public string Logo { get; set; } = null!;
         public string CustomerID { get; set; }
         public string SizeURL { get; set; } = null!;
-        public List<ProductEntity> TypeGoods { get; set; } = new List<ProductEntity>();
+        public List<ProductModel> TypeGoods { get; set; } = new List<ProductModel>();
     }
 }

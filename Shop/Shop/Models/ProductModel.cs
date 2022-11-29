@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-
-namespace Shop.Data.Entities
+﻿namespace Shop.Data.Entities
 {
-    public class ProductEntitiy
+    public class ProductModel
     {
         public int Id { get; set; }
         public string SKU { get; set; } = null!;
@@ -11,13 +9,13 @@ namespace Shop.Data.Entities
         public string ProductName { get; set; } = null!;
         public string ProductDescription { get; set; } = null!;
         public int QuantityPerUnit { get; set; }
-        public decimal? UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         public string MSRP { get; set; } = null!;
         public string AvailableSize { get; set; } = null!;
         public string AvailableColors { get; set; } = null!;
         public string Size { get; set; } = null!;
         public string Color { get; set; } = null!;
-        public decimal? Discount { get; set; }
+        public decimal Discount { get; set; }
         public string UnitWeight { get; set; } = null!;
         public int UnitsInStock { get; set; }
         public int UnitsOnOrder { get; set; }
@@ -28,10 +26,10 @@ namespace Shop.Data.Entities
         public int Ranking { get; set; }
         public string Note { get; set; } = null!;
         public int SupplierID { get; set; }
-        public SupplierEntity Supplier { get; set; } = null!;
+        public SupplierModel Supplier { get; set; } = null!;
         public int CategoryID { get; set; }
-        public CategoryEntity Category { get; set; } = null!;
+        public CategoryModel Category { get; set; } = null!;
         public int CurrentOrder { get; set; }
-        public OrderDetailsEntity OrderDetails { get; set; } = null!;
+        public OrderDetailsModel OrderDetails { get; set; } = null!;
     }
 }

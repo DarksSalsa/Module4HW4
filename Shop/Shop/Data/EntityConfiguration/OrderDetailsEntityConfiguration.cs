@@ -21,6 +21,10 @@ namespace Shop.Data.Entities
             builder.Property(p => p.Fulfilled);
             builder.Property(p => p.ShipDate);
             builder.Property(p => p.BillDate);
+            builder.HasOne(o => o.Order).WithMany(m => m.OrderDetails)
+                .HasForeignKey(k => k.OrderID).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(o => o.Product).WithMany(m => m.OrderDetails)
+                .HasForeignKey(k => k.ProductID).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

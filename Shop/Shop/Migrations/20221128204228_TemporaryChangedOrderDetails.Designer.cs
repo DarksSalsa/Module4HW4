@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Shop.Data;
@@ -11,9 +12,11 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221128204228_TemporaryChangedOrderDetails")]
+    partial class TemporaryChangedOrderDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -273,6 +276,9 @@ namespace Shop.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("OrderDetailsID")
+                        .HasColumnType("integer");
+
                     b.Property<string>("OrderNumber")
                         .IsRequired()
                         .HasColumnType("text");
@@ -357,6 +363,9 @@ namespace Shop.Migrations
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("CurrentOrder")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Discount")
                         .HasColumnType("numeric");

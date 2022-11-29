@@ -1,5 +1,8 @@
 {
-  "ConnectionStrings": {
-    "DefaultConnection": "Server = localhost,1436;Database=Shop;User ID=sa;Password=1My_password;Trust Server Certificate=true"
-  }
+	"Logger": {
+		"Path": "log.txt"
+	},
+	"ConnectionStrings": {
+		"DefaultConnection": "server=127.0.0.1;port=5433;database=eShop;uid=postgres;password=postgres;"
+	}
 }

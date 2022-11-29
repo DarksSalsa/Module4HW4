@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Shop.Data;
@@ -11,9 +12,11 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221126200113_ChangeFromIntToGuid")]
+    partial class ChangeFromIntToGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,9 +239,11 @@ namespace Shop.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderID");
+                    b.HasIndex("OrderID")
+                        .IsUnique();
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("ProductID")
+                        .IsUnique();
 
                     b.ToTable("OrderDetails");
                 });
@@ -272,6 +277,9 @@ namespace Shop.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("OrderDetailsID")
+                        .HasColumnType("integer");
 
                     b.Property<string>("OrderNumber")
                         .IsRequired()
@@ -358,7 +366,10 @@ namespace Shop.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Discount")
+                    b.Property<int>("CurrentOrder")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Discount")
                         .HasColumnType("numeric");
 
                     b.Property<bool>("DiscountAvailable")
@@ -409,10 +420,11 @@ namespace Shop.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("SupplierID")
-                        .HasColumnType("integer");
+                    b.Property<string>("SupplierID")
+                        .IsRequired()
+                        .HasColumnType("text");
 
-                    b.Property<decimal>("UnitPrice")
+                    b.Property<decimal?>("UnitPrice")
                         .HasColumnType("numeric");
 
                     b.Property<string>("UnitWeight")
@@ -460,11 +472,8 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("Shop.Data.Entities.SupplierEntity", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseHiLo(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<string>("Address1")
                         .IsRequired()
@@ -501,9 +510,8 @@ namespace Shop.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerID")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("DiscountAvailable")
                         .HasColumnType("boolean");
@@ -560,14 +568,14 @@ namespace Shop.Migrations
             modelBuilder.Entity("Shop.Data.Entities.OrderDetailsEntity", b =>
                 {
                     b.HasOne("Shop.Data.Entities.OrderEntity", "Order")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("OrderID")
+                        .WithOne("OrderDetails")
+                        .HasForeignKey("Shop.Data.Entities.OrderDetailsEntity", "OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shop.Data.Entities.ProductEntity", "Product")
-                        .WithMany("OrderDetails")
-                        .HasForeignKey("ProductID")
+                        .WithOne("OrderDetails")
+                        .HasForeignKey("Shop.Data.Entities.OrderDetailsEntity", "ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -634,7 +642,8 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("Shop.Data.Entities.OrderEntity", b =>
                 {
-                    b.Navigation("OrderDetails");
+                    b.Navigation("OrderDetails")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shop.Data.Entities.PaymentEntity", b =>
@@ -644,7 +653,8 @@ namespace Shop.Migrations
 
             modelBuilder.Entity("Shop.Data.Entities.ProductEntity", b =>
                 {
-                    b.Navigation("OrderDetails");
+                    b.Navigation("OrderDetails")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Shop.Data.Entities.ShipperEntity", b =>

@@ -15,8 +15,8 @@ namespace Shop.Data
             var connectionString = config.GetConnectionString("DefaultConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDBContext>();
-            optionsBuilder.UseSqlServer(connectionString, opts
-                => opts.CommandTimeout((int)TimeSpan.FromMinutes(5).TotalSeconds));
+            optionsBuilder.UseNpgsql(connectionString, opts
+                => opts.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds));
             return new ApplicationDBContext(optionsBuilder.Options);
         }
     }

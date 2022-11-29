@@ -5,7 +5,7 @@
 namespace Shop.Migrations
 {
     /// <inheritdoc />
-    public partial class CertificateCheck : Migration
+    public partial class ChangeFromIntToGuid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

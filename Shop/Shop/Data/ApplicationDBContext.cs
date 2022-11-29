@@ -10,14 +10,14 @@ namespace Shop.Data
         {
         }
 
-        public DbSet<CategoryEntity> Category { get; set; }
-        public DbSet<CustomerEntity> Customers { get; set; }
-        public DbSet<OrderDetailsEntity> OrderDetails { get; set; }
-        public DbSet<OrderEntity> Orders { get; set; }
-        public DbSet<PaymentEntity> Payment { get; set; }
-        public DbSet<ProductEntitiy> Products { get; set; }
-        public DbSet<ShipperEntity> Shippers { get; set; }
-        public DbSet<SupplierEntity> Suppliers { get; set; }
+        public DbSet<CategoryEntity> Category { get; set; } = null!;
+        public DbSet<CustomerEntity> Customers { get; set; } = null!;
+        public DbSet<OrderDetailsEntity> OrderDetails { get; set; } = null!;
+        public DbSet<OrderEntity> Orders { get; set; } = null!;
+        public DbSet<PaymentEntity> Payment { get; set; } = null!;
+        public DbSet<ProductEntity> Products { get; set; } = null!;
+        public DbSet<ShipperEntity> Shippers { get; set; } = null!;
+        public DbSet<SupplierEntity> Suppliers { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +29,7 @@ namespace Shop.Data
             modelBuilder.ApplyConfiguration(new ProductEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShipperEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SupplierEntityConfiguration());
+            modelBuilder.UseHiLo();
         }
     }
 }
